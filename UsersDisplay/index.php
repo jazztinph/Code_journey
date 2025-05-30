@@ -14,19 +14,19 @@ include '../UsersDisplay/Displayinfo.php';
 
 <body>
     <?php
-    // Create an instance of the class
-    $users1 = new users("Clean Code", "Robert C. Martin", 2008);
-    $users2 = new users("Atomic Habits", "James Clear", 2018);
+    // // Create an instance of the class
+    // $users1 = new users("Clean Code", "Robert C. Martin", 2008);
 
-    // Display books details
-    echo "Summary: <br>";
-    echo $users1->getSummary() . "<br>";
-    echo $users2->getSummary() . "<br><br>";
-    // Output the details
+    // // Display books details
+    // echo "Users Information:<br><br>";
+    // echo $users1->getInfo() . "<br>";
 
-    echo "{$users1->title} by {$users1->author} Published in {$users1->yearPublished}";
-    echo "<br>";
-    echo "{$users2->title} by {$users2->author} Published in {$users2->yearPublished}";
+    $uName = "Justin";
+    $bottles = 5;
+
+    $deposit = new Deposit($uName, $bottles);
+
+    echo $deposit->getDepositMessage();
     ?>
 </body>
 
