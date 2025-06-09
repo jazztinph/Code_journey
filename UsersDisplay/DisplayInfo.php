@@ -35,27 +35,22 @@ class Users
         $this->name = $name;
         $this->bottles = $bottlesDeposited;
     }
-
     public function getName()
     {
         return $this->name;
     }
-
     public function getPoints()
     {
         return $this->points;
     }
-
     public function getBottlesDeposited()
     {
         return $this->bottles;
     }
-
     public function getPointsPerBottle()
     {
         return $this->pointsPerBottle;
     }
-
     public function calculatePoints()
     {
         $this->points = $this->bottles * $this->pointsPerBottle;
