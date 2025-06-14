@@ -1,29 +1,40 @@
 <?php
+
+declare(strict_types=1);
 // Author: Justin Domanais
-// Date: 6-9-2025
+// Date: 2025-06-09
 
-//Task 1: Indexed Array Task
-$colors = ["Blue", "Red", "Green", "Yellow", "Purple"]; //black ... gold added.
+// 🧩 Task 1: Indexed Array Task
+$colors = (array) ["Blue", "Red", "Green", "Yellow", "Purple"];
 
-// changing index value
+// Modify a value by index
 $colors[2] = "Yellow Green";
-// add one item on array
+
+// Add one item
 $colors[] = "Black";
-// add multiple items
-array_push($colors, "Teal", "Magenta", "Gold");
-// deleting array
-array_splice($colors, 7, 2); // removed magenta and gold.
-unset($colors[2]); //remove yellow green color.
-$colors = array_values($colors); //Before looping, reindex the array using array_values():
 
-echo "Favorite Colors: \n<br>";
+// Add multiple items
+$arrayPush = array_push($colors, "Teal", "Magenta", "Gold");
 
+// Remove items
+array_splice($colors, 7, 2); // Removes "Magenta" and "Gold"
+unset($colors[2]); // Removes "Yellow Green"
+
+// Reindex array to avoid gaps
+$colors = array_values($colors);
+
+// Display message
+echo "🎨 Favorite Colors:<br>";
+
+// Function to display using a for loop
 function forColors($colors)
 {
     for ($i = 0; $i < count($colors); $i++) {
-        echo "<br>" . $i + 1 . ". " . $colors[$i] . "\n";
+        echo "<br>" . ($i + 1) . ". " . $colors[$i];
     }
 }
+
+// Function to display using foreach loop
 function displayColors($colors)
 {
     foreach ($colors as $c) {
@@ -31,47 +42,96 @@ function displayColors($colors)
     }
 }
 
-
+// Function dispatcher (dynamic call)
 $myFunc = ["Justin", "forColors", "displayColors"];
-// DisplayColors
+
+echo "<br><strong>Using displayColors():</strong><br>";
 $myFunc[2]($colors);
-echo "<br>";
-// forColors
+
+echo "<br><br><strong>Using forColors():</strong><br>";
 $myFunc[1]($colors);
 
 
-// 🧩 Task 2: Associative Array Task
+//----------------------------------------------------------
 
-$student = [
-    "name" => "Jazztin",
-    "age" => 21,
-    "course" => "BSIS",
-    "Status" => "Taken"
-];
-// changing value
-$student['age'] = 22;
-// adding new item
-$student["Section"] = 304;
-//add multiple item
-$student += ["Sex" => "Male", "Birthyear" => 2002];
-// // remove item
-// // unset($student["Status"]); //remove status
 
-// //remove in associative array / new array
-// $arrayNewStud = array_diff($student, ["Taken"]);
 
-//remove the last item on array.
-array_pop($student); // Removes the last key-value pair (Birthyear).
-// remove the first item on array (removed name key).
-array_shift($student);
+// 🧩 Task 2: Associative Array Task Using Class with Constructor
 
-echo "<br><br>Student Information:<br>";
+class Student
+{
+    public string $name;
+    public int $age;
+    public string $course;
+    public string $status;
+    protected array $additionalInfo;
 
-// using foreach
-foreach ($student as $info => $value) {
-    // ucfirst() convert first letter to be Uppercase.
-    echo "<br>" . ucfirst($info) . ": $value";
+    // 🏗 Constructor to initialize values
+    public function __construct(
+        $name,
+        $age,
+        $course,
+        $status,
+        $additionalInfo = []
+    ) {
+        $this->name = $name;
+        $this->age = $age; // Casting string to int
+        $this->course = $course;
+        $this->status = $status;
+        $this->additionalInfo = $additionalInfo;
+    }
+
+    // ➕ Add multiple key-value items
+    public function addInfo(array $info): void
+    {
+        $this->additionalInfo += $info;
+    }
+
+    // ➖ Remove last item in additional info
+    public function removeLastInfo(): void
+    {
+        array_pop($this->additionalInfo);
+    }
+
+    // ➖ Remove first item in additional info
+    public function removeFirstInfo(): void
+    {
+        array_shift($this->additionalInfo);
+    }
+
+    // 📄 Display all information
+    public function display(): void
+    {
+        echo "<br><br>🧑‍🎓 Student Information:<br>";
+        echo "<br>Name: {$this->name}";
+        echo "<br>Age: {$this->age}";
+        echo "<br>Course: {$this->course}";
+        echo "<br>Status: {$this->status}";
+
+        foreach ($this->additionalInfo as $key => $value) {
+            echo "<br>" . ucfirst($key) . ": $value";
+        }
+    }
 }
 
+// ✅ Create instance
+$student = new Student(
+    name: "Jazztin",
+    age: 22,
+    course: "BSIS",
+    status: "Taken"
+);
 
-// 
+// ➕ Add items
+$student->addInfo([
+    "Section" => 304,
+    "Sex" => "Male",
+    "Birthyear" => 2002
+]);
+
+// ➖ Remove items
+// $student->removeLastInfo();  // Removes Birthyear
+// $student->removeFirstInfo(); // Removes Section
+
+// 📤 Display
+$student->display();
