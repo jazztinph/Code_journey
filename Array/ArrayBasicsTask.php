@@ -68,11 +68,11 @@ class Student
 
     // 🏗 Constructor to initialize values
     public function __construct(
-        $name,
-        $age,
-        $course,
-        $status,
-        $additionalInfo = []
+        string $name,
+        int $age,
+        string $course,
+        string $status,
+        array $additionalInfo = []
     ) {
         $this->name = $name;
         $this->age = $age; // Casting string to int
